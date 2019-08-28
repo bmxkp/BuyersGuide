@@ -12,13 +12,13 @@ class ListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var phones: [Phone] = [] {
+    var phones: [Phone] = []{
         didSet {
             tableView.reloadData()
 
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         APIManager.shared.getPhoneInfo { [weak self] result in
