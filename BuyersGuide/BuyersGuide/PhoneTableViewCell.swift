@@ -23,17 +23,18 @@ class PhoneTableViewCell: UITableViewCell {
     }
     
     func configCell(phone: Phone) {
+     
         nameLabel.text = phone.name
         descriptLabel.text = phone.description
-        priceLabel.text = "\(phone.price)"
-        ratingLabel.text = "\(phone.rating)"
+        priceLabel.text = "Price: $\(phone.price)"
+        ratingLabel.text = "Rating: \(phone.rating)"
         phoneImageView.kf.setImage(with: URL(string: phone.thumbImageURL))
         
     }
     
-    //    override func prepareForReuse() {
-    //        super.prepareForReuse()
-    //        artworkImageView.image = nil
-    //    }
+        override func prepareForReuse() {
+            super.prepareForReuse()
+            phoneImageView.image = nil
+        }
 }
 

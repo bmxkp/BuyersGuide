@@ -11,14 +11,13 @@ import Alamofire
 import SwiftyJSON
 
 protocol APIManagerProtocol {
-    func getPhoneInfo(artistName: String, completion: @escaping (Swift.Result<[Phone], Error>) -> Void)
+    func getPhoneInfo(completion: @escaping (Swift.Result<[Phone], Error>) -> Void)
+    //func getImages(completion: @escaping (Swift.Result<[Phone], Error>) -> Void)
 }
 
 class APIManager: APIManagerProtocol {
- 
     static let shared: APIManager = APIManager()
-    
-    func getPhoneInfo(artistName: String, completion: @escaping (Swift.Result<[Phone], Error>) -> Void) {
+    func getPhoneInfo(completion: @escaping (Swift.Result<[Phone], Error>) -> Void) {
         let baseURL: String = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
         AF.request(baseURL)
             .validate()
@@ -27,8 +26,8 @@ class APIManager: APIManagerProtocol {
                 case .success:
                     do {
                         let json = try JSON(data: response.data!)
-                        var tracks: [Phone] = json["results"].arrayValue.flatMap({ Phone(json: $0) })
-                        completion(.success(tracks))
+                        let phones: [Phone] = json.arrayValue.compactMap({ Phone(json: $0) })
+                        completion(.success(phones))
                     } catch (let error) {
                         completion(.failure(error))
                     }
@@ -37,5 +36,11 @@ class APIManager: APIManagerProtocol {
                 }
         }
     }
+    
+    func getImages(completion: @escaping (Swift.Result<[Phone], Error>) -> Void){
+        
+        let baseURL: String = "https://scb-test-mobile.herokuapp.com/api/mobiles/1/images/"
+    }
+    
 }
 

@@ -16,6 +16,7 @@
 		C045769723153116000F085A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045769623153116000F085A /* Model.swift */; };
 		C0457699231532B0000F085A /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0457698231532B0000F085A /* ApiManager.swift */; };
 		C045769B231534CE000F085A /* PhoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045769A231534CE000F085A /* PhoneTableViewCell.swift */; };
+		C045769D231535F4000F085A /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045769C231535F4000F085A /* ListDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		C045769623153116000F085A /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		C0457698231532B0000F085A /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		C045769A231534CE000F085A /* PhoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTableViewCell.swift; sourceTree = "<group>"; };
+		C045769C231535F4000F085A /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				C045768423152FD7000F085A /* AppDelegate.swift */,
 				C045768623152FD7000F085A /* ListViewController.swift */,
+				C045769C231535F4000F085A /* ListDetailViewController.swift */,
 				C045769A231534CE000F085A /* PhoneTableViewCell.swift */,
 				C0457698231532B0000F085A /* ApiManager.swift */,
 				C045769623153116000F085A /* Model.swift */,
@@ -215,6 +218,7 @@
 				C0457699231532B0000F085A /* ApiManager.swift in Sources */,
 				C045769723153116000F085A /* Model.swift in Sources */,
 				C045768723152FD7000F085A /* ListViewController.swift in Sources */,
+				C045769D231535F4000F085A /* ListDetailViewController.swift in Sources */,
 				C045768523152FD7000F085A /* AppDelegate.swift in Sources */,
 				C045769B231534CE000F085A /* PhoneTableViewCell.swift in Sources */,
 			);
