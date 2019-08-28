@@ -10,12 +10,13 @@ import Kingfisher
 import UIKit
 
 class ListDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    @IBOutlet var phoneImageView: UIImageView!
+
     @IBOutlet var descriptLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var ratingLabel: UILabel!
     @IBOutlet var sliderCollection: UICollectionView!
-    //    @IBOutlet var pageControl: UIPageControl!
+    @IBOutlet var viewCell: UIView!
+
 
     var phoneDetail: Phone?
     var imageDetail: [Images] = []
@@ -31,29 +32,13 @@ class ListDetailViewController: UIViewController, UICollectionViewDelegate, UICo
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        pageControl.currentPage = indexPath.section
-    }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = collectionView.frame.size
         return CGSize(width: size.width, height: size.height)
     }
 
-    let pageControl: UIPageControl = {
-        let pc = UIPageControl()
-        pc.numberOfPages = 3
-        pc.currentPage = 0
-        pc.translatesAutoresizingMaskIntoConstraints = false
-
-        return pc
-    }()
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        sliderCollection.isPagingEnabled = true
-//        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         APIManager.shared.getImages(mobileId: mobileId){ [weak self] result in
             print("common,")
             switch result {
@@ -70,18 +55,15 @@ class ListDetailViewController: UIViewController, UICollectionViewDelegate, UICo
         setupUI()
     }
 
+    
     func setupUI() {
         title = phoneDetail?.name
         descriptLabel.text = phoneDetail?.description
-        // priceLabel.text = "Price: $\(phoneDetail.price)"
         ratingLabel.text = "Rating: \(phoneDetail!.rating)"
         priceLabel.text = "Price: $\(phoneDetail!.price)"
+        sliderCollection.isPagingEnabled = true
+        viewCell?.backgroundColor = UIColor(white: 1, alpha: 0.5)
 
-        //        pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 
-//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let scrollPos = scrollView.contentOffset.x / view.frame.width
-//        pageControl.currentPage = Int(scrollPos)
-//    }
 }
