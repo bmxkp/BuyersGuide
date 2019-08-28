@@ -12,11 +12,10 @@ import SwiftyJSON
 
 protocol APIManagerProtocol {
     func getPhoneInfo(completion: @escaping (Swift.Result<[Phone], Error>) -> Void)
-    func getImages(completion: @escaping (Swift.Result<[Images], Error>) -> Void)
+    func getImages(mobileId: Int,completion: @escaping (Swift.Result<[Images], Error>) -> Void)
 }
 
 class APIManager: APIManagerProtocol {
-    var phoneDetail: Phone?
     static let shared: APIManager = APIManager()
     func getPhoneInfo(completion: @escaping (Swift.Result<[Phone], Error>) -> Void) {
         let baseURL: String = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
@@ -38,38 +37,25 @@ class APIManager: APIManagerProtocol {
         }
     }
     
-    func getImages(completion: @escaping (Swift.Result<[Images], Error>) -> Void){
-        //let mobileId = phoneDetail?.id
-        let mobileId = 1
+    func getImages(mobileId: Int,completion: @escaping (Swift.Result<[Images], Error>) -> Void){
         let baseURL: String = "https://scb-test-mobile.herokuapp.com/api/mobiles/\(mobileId)/images/"
         AF.request(baseURL)
         .validate()
             .responseJSON { response in
-//                switch response.result {
-//                case .success:
-//                    do {
-////                        let ImageSet = try JSONDecoder().decode([Images].self, from: response.data!)
-//                        completion(.success(ImageSet))
-//                    } catch (let error) {
-//                        completion(.failure(error))
-//                    }
-//                case .failure(let error):
-//                    completion(.failure(error))
-//                }
+                switch response.result {
+                case .success:
+                    do {
+                        let ImageSet = try JSONDecoder().decode([Images].self, from: response.data!)
+                        completion(.success(ImageSet))
+                    } catch (let error) {
+                        completion(.failure(error))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
     }
     
 }
 }
-//case .success:
-//do {
-//let decoder = JSONDecoder()
-//let result = try decoder.decode(YoutubeResponse.self, from: response.data!)
-//completion(result.youtubes)
-//} catch {
-//}
-//break
-//case let .failure(error):
-//print(error)
-//break
-//}
+
 

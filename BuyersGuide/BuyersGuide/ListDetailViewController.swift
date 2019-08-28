@@ -6,44 +6,61 @@
 //  Copyright © 2562 SCBiOS. All rights reserved.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
-class ListDetailController: UIViewController {
-//    UICollectionViewDelegate,UICollectionViewDataSource
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return imageDetail.count
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        
-//    }
-//    
+class ListDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    @IBOutlet var phoneImageView: UIImageView!
+    @IBOutlet var descriptLabel: UILabel!
+    @IBOutlet var priceLabel: UILabel!
+    @IBOutlet var ratingLabel: UILabel!
+    @IBOutlet var sliderCollection: UICollectionView!
+    //    @IBOutlet var pageControl: UIPageControl!
 
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var phoneImageView: UIImageView!
-    @IBOutlet weak var descriptLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var ratingLabel: UILabel!
-    @IBOutlet weak var sliderCollection: UICollectionView!
-    
-    
     var phoneDetail: Phone?
     var imageDetail: [Images] = []
+    var mobileId: Int!
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageDetail.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! ImageCollectionViewCell
+        let image: Images = imageDetail[indexPath.row]
+        cell.imageView.kf.setImage(with: URL(string: image.url))
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        pageControl.currentPage = indexPath.section
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = collectionView.frame.size
+        return CGSize(width: size.width, height: size.height)
+    }
+
+    let pageControl: UIPageControl = {
+        let pc = UIPageControl()
+        pc.numberOfPages = 3
+        pc.currentPage = 0
+        pc.translatesAutoresizingMaskIntoConstraints = false
+
+        return pc
+    }()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       // sliderCollection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "ID")
         sliderCollection.isPagingEnabled = true
-        APIManager.shared.getImages { [weak self] result in
+//        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
+        APIManager.shared.getImages(mobileId: mobileId){ [weak self] result in
             print("common,")
             switch result {
-            case .success(let image):
+            case let .success(image):
                 self?.imageDetail = image
-                self?.loadView()
-            case .failure(let error):
+                self?.sliderCollection.reloadData()
+            case let .failure(error):
                 let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
                 let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(dismissAction)
@@ -51,15 +68,20 @@ class ListDetailController: UIViewController {
             }
         }
         setupUI()
-    
     }
-    
-    func setupUI(){
+
+    func setupUI() {
         title = phoneDetail?.name
         descriptLabel.text = phoneDetail?.description
         // priceLabel.text = "Price: $\(phoneDetail.price)"
-        //ratingLabel.text = "Rating: \(phoneDetail.rating)"
-        
+        ratingLabel.text = "Rating: \(phoneDetail!.rating)"
+        priceLabel.text = "Price: $\(phoneDetail!.price)"
+
+        //        pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let scrollPos = scrollView.contentOffset.x / view.frame.width
+//        pageControl.currentPage = Int(scrollPos)
+//    }
 }

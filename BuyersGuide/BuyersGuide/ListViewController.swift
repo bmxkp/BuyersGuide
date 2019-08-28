@@ -18,7 +18,6 @@ class ListViewController: UIViewController {
 
         }
     }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         APIManager.shared.getPhoneInfo { [weak self] result in
@@ -36,11 +35,13 @@ class ListViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "listDetail" {
-            let viewController = segue.destination as? ListDetailController
+            let viewController = segue.destination as? ListDetailViewController
             let indexPath = tableView.indexPathForSelectedRow
+            let item = self.phones[(indexPath?.row)!]
+            let mobileId = item.id
             if let indexPath = indexPath {
                 viewController?.phoneDetail = phones[(indexPath as NSIndexPath).row]
-
+                viewController?.mobileId = mobileId
             }
         }
     }
