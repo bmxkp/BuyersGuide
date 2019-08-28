@@ -45,17 +45,17 @@ class APIManager: APIManagerProtocol {
         AF.request(baseURL)
         .validate()
             .responseJSON { response in
-                switch response.result {
-                case .success:
-                    do {
-                        let ImageSet = try JSONDecoder().decode([Images].self, from: response.data!)
-                        completion(.success(ImageSet))
-                    } catch (let error) {
-                        completion(.failure(error))
-                    }
-                case .failure(let error):
-                    completion(.failure(error))
-                }
+//                switch response.result {
+//                case .success:
+//                    do {
+////                        let ImageSet = try JSONDecoder().decode([Images].self, from: response.data!)
+//                        completion(.success(ImageSet))
+//                    } catch (let error) {
+//                        completion(.failure(error))
+//                    }
+//                case .failure(let error):
+//                    completion(.failure(error))
+//                }
     }
     
 }

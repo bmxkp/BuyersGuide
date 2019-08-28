@@ -9,16 +9,17 @@
 import UIKit
 import Kingfisher
 
-class ListDetailController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
-    }
-    
+class ListDetailController: UIViewController {
+//    UICollectionViewDelegate,UICollectionViewDataSource
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return imageDetail.count
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        
+//    }
+//    
+
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var phoneImageView: UIImageView!
@@ -48,9 +49,9 @@ class ListDetailController: UIViewController,UICollectionViewDelegate,UICollecti
                 alert.addAction(dismissAction)
                 self?.present(alert, animated: true)
             }
+        }
         setupUI()
     
-        
     }
     
     func setupUI(){
@@ -60,8 +61,5 @@ class ListDetailController: UIViewController,UICollectionViewDelegate,UICollecti
         //ratingLabel.text = "Rating: \(phoneDetail.rating)"
         
     }
-        
-     
-    
 
 }
