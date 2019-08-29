@@ -28,8 +28,14 @@ class PhoneTableViewCell: UITableViewCell {
         descriptLabel.text = phone.description
         priceLabel.text = "Price: $\(phone.price)"
         ratingLabel.text = "Rating: \(phone.rating)"
-        phoneImageView.kf.setImage(with: URL(string: phone.thumbImageURL))
-        
+        let url = phone.thumbImageURL
+        if url.contains("http") {
+            phoneImageView.kf.setImage(with: URL(string: url))
+        }
+        else {
+            phoneImageView.kf.setImage(with: URL(string: "http://\(url)"))
+        }
+
     }
     
         override func prepareForReuse() {
